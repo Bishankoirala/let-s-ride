@@ -1,0 +1,26 @@
+.nav-hover {
+    position: relative;
+    transition: 0.3s ease;
+}
+
+/* Blue text on hover */
+.nav-hover:hover {
+    color: #0d6efd !important;
+}
+
+/* Blue underline */
+.nav-hover::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #0d6efd;
+    transition: 0.3s ease;
+}
+
+/* Expand underline on hover */
+.nav-hover:hover::after {
+    width: 100%;
+}
