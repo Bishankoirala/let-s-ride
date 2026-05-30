@@ -1,25 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Register</title>
+    <title>Let's Ride - Register</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="container">
-    <h2>Register</h2>
 
-    <input type="text" id="regUser" placeholder="Username">
-    <input type="password" id="regPass" placeholder="Password">
+    <h1>Let's Ride</h1>
+    <p class="tagline">Rent. Share. Ride.</p>
 
-    <button onclick="register()">Register</button>
+    <h2>Create Account</h2>
+
+    <input type="text" id="fullname"
+           placeholder="Full Name">
+
+    <input type="email" id="email"
+           placeholder="Email Address">
+
+    <input type="tel" id="phone"
+           placeholder="Phone Number">
+
+    <select id="role">
+        <option>Select User Type</option>
+        <option>Vehicle Owner</option>
+        <option>Renter</option>
+    </select>
+
+    <input type="password" id="password"
+           placeholder="Password">
+
+    <input type="password"
+           id="confirmPassword"
+           placeholder="Confirm Password">
+
+    <button onclick="register()">
+        Create Account
+    </button>
 
     <p>
         Already have an account?
         <a href="login.html">Login</a>
     </p>
+
 </div>
 
 <script src="script.js"></script>
+
 </body>
 </html>
