@@ -1,25 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Let's Ride - Login</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="container">
+
+    <h1>Let's Ride</h1>
+    <p class="tagline">
+        Your next journey starts here
+    </p>
+
     <h2>Login</h2>
 
-    <input type="text" id="loginUser" placeholder="Username">
-    <input type="password" id="loginPass" placeholder="Password">
+    <input type="email"
+           id="loginEmail"
+           placeholder="Email Address">
 
-    <button onclick="login()">Login</button>
+    <input type="password"
+           id="loginPassword"
+           placeholder="Password">
+
+    <button onclick="login()">
+        Login
+    </button>
 
     <p>
         Don't have an account?
-        <a href="register.html">Register</a>
+        <a href="register.html">
+            Register
+        </a>
     </p>
+
 </div>
 
 <script src="script.js"></script>
+
 </body>
 </html>
