@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile — VehicleRent</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="dashboard.css" />
+    <style>
+        .avatar-upload {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .avatar-upload .avatar-big {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #1a56db;
+            color: #fff;
+            font-size: 36px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid #fff;
+            box-shadow: 0 4px 14px rgba(26, 86, 219, .3);
+        }
+
+        .avatar-upload .avatar-edit-btn {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #1a56db;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            border: 2px solid #fff;
+        }
+
+        .verify-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 10px;
+            border-radius: 99px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .verify-badge.verified {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .verify-badge.unverified {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .tab-pill {
+            display: flex;
+            gap: 4px;
+            background: #f1f5f9;
+            border-radius: 10px;
+            padding: 4px;
+            margin-bottom: 20px;
+        }
+
+        .tab-pill button {
+            flex: 1;
+            padding: 8px;
+            border-radius: 8px;
+            border: none;
+            background: transparent;
+            font-size: 13px;
+            font-weight: 500;
+            color: #64748b;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .tab-pill button.active {
+            background: #fff;
+            color: #1a56db;
+            font-weight: 700;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, .08);
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <aside class="sidebar" id="sidebar">
+        <a href="index.html" class="sidebar-brand">
+            <div class="brand-icon"><i class="bi bi-car-front-fill"></i></div>
+            <div><span>VehicleRent</span><small>My Account</small></div>
+        </a>
+        <nav class="sidebar-nav">
+            <div class="nav-label">Customer</div>
+            <a href="customer-dashboard.html" class="nav-link"><i class="bi bi-grid-1x2-fill"></i> Dashboard</a>
+            <a href="my-bookings.html" class="nav-link"><i class="bi bi-calendar2-check"></i> My Bookings</a>
+            <div class="nav-label">Owner</div>
+            <a href="owner-dashboard.html" class="nav-link"><i class="bi bi-shop"></i> Owner Dashboard</a>
+            <a href="my-vehicles.html" class="nav-link"><i class="bi bi-car-front"></i> My Vehicles</a>
+            <a href="earnings.html" class="nav-link"><i class="bi bi-graph-up-arrow"></i> Earnings</a>
+            <div class="nav-label">Account</div>
+            <a href="profile.html" class="nav-link active"><i class="bi bi-person-circle"></i> Profile</a>
+            <a href="#" class="nav-link"><i class="bi bi-shield-check"></i> Security</a>
+            <a href="#" class="nav-link"><i class="bi bi-bell"></i> Notifications</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="profile.html" class="user-card">
+                <div class="user-avatar">JD</div>
+                <div class="user-info"><strong>John Doe</strong><small>john.doe@email.com</small></div>
+            </a>
+            <a href="vehicle-login.html" class="btn btn-outline-danger btn-sm w-100 mt-2"
+                style="border-radius:8px;font-size:12px">
+                <i class="bi bi-box-arrow-right me-1"></i> Sign Out
+            </a>
+        </div>
+    </aside>
+    <div class="sidebar-overlay" id="overlay" onclick="closeSidebar()"></div>
+
+    <header class="topbar">
+        <button class="sidebar-toggle" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
+        <h1 class="page-title">My Profile</h1>
+        <div class="user-avatar" style="width:38px;height:38px;font-size:14px;cursor:pointer">JD</div>
+    </header>
+
+    <main class="main-content">
+        <div class="content-body" style="max-width:900px">
+
+            <!-- Profile Header Card -->
+            <div class="panel mb-4" style="overflow:visible">
+                <div
+                    style="background:linear-gradient(135deg,#1a56db,#1e40af);height:100px;border-radius:12px 12px 0 0;position:relative">
+                    <div style="position:absolute;bottom:-50px;left:28px">
+                        <div class="avatar-upload" onclick="document.getElementById('avatarInput').click()">
+                            <div class="avatar-big">JD</div>
+                            <div class="avatar-edit-btn"><i class="bi bi-camera-fill"></i></div>
+                        </div>
+                        <input type="file" id="avatarInput" accept="image/*" style="display:none">
+                    </div>
+                </div>
+                <div class="panel-body" style="padding-top:64px">
+                    <div class="d-flex flex-wrap align-items-start justify-content-between gap-3">
+                        <div>
+                            <h4 class="fw-bold mb-1">John Doe</h4>
+                            <div class="d-flex flex-wrap gap-2 align-items-center">
+                                <span style="font-size:13px;color:#64748b"><i
+                                        class="bi bi-envelope me-1"></i>john.doe@email.com</span>
+                                <span style="font-size:13px;color:#64748b"><i class="bi bi-telephone me-1"></i>+977
+                                    9812345678</span>
+                                <span style="font-size:13px;color:#64748b"><i class="bi bi-geo-alt me-1"></i>Kathmandu,
+                                    Nepal</span>
+                            </div>
+                            <div class="d-flex gap-2 mt-2 flex-wrap">
+                                <span class="verify-badge verified"><i class="bi bi-shield-fill-check"></i> Email
+                                    Verified</span>
+                                <span class="verify-badge verified"><i class="bi bi-shield-fill-check"></i> Phone
+                                    Verified</span>
+                                <span class="verify-badge unverified"><i class="bi bi-shield-x"></i> ID Not
+                                    Verified</span>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-3 text-center">
+                            <div>
+                                <div style="font-size:22px;font-weight:800;color:#1a56db">8</div>
+                                <div style="font-size:11px;color:#64748b">Bookings</div>
+                            </div>
+                            <div style="width:1px;background:#e2e8f0"></div>
+                            <div>
+                                <div style="font-size:22px;font-weight:800;color:#16a34a">4</div>
+                                <div style="font-size:11px;color:#64748b">Vehicles</div>
+                            </div>
+                            <div style="width:1px;background:#e2e8f0"></div>
+                            <div>
+                                <div style="font-size:22px;font-weight:800;color:#f59e0b">4.9 ⭐</div>
+                                <div style="font-size:11px;color:#64748b">Rating</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ID Verification Alert -->
+            <div class="alert d-flex align-items-start gap-3 mb-4"
+                style="background:#fffbeb;border:1px solid #fcd34d;border-radius:12px;padding:16px">
+                <i class="bi bi-exclamation-triangle-fill text-warning"
+                    style="font-size:20px;flex-shrink:0;margin-top:2px"></i>
+                <div>
+                    <div style="font-weight:600;font-size:14px">Verify your identity to unlock all features</div>
+                    <div style="font-size:12px;color:#64748b;margin-top:2px">Upload your government-issued ID to build
+                        trust and get more bookings approved faster.</div>
+                    <button class="btn btn-warning btn-sm mt-2" style="border-radius:8px;font-size:12px"
+                        onclick="openVerifyModal()">
+                        <i class="bi bi-upload me-1"></i> Upload ID Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tab-pill">
+                <button class="active" onclick="switchTab('personal',this)">Personal Info</button>
+                <button onclick="switchTab('security',this)">Security</button>
+                <button onclick="switchTab('payment',this)">Payment Methods</button>
+                <button onclick="switchTab('notifications',this)">Notifications</button>
+            </div>
+
+            <!-- Tab: Personal Info -->
+            <div class="tab-panel active" id="tab-personal">
+                <form onsubmit="saveProfile(event)">
+                    <div class="panel mb-3">
+                        <div class="panel-header">
+                            <h2 class="panel-title">Personal Information</h2>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold" style="font-size:13px">First Name</label>
+                                    <input type="text" class="form-control" value="John" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold" style="font-size:13px">Last Name</label>
+                                    <input type="text" class="form-control" value="Doe" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold" style="font-size:13px">Email Address</label>
+                                    <div class="input-group">
+                                        <input type="email" class="form-control" value="john.doe@email.com" />
+                                        <span class="input-group-text" style="font-size:11px;color:#16a34a"><i
+                                                class="bi bi-check-circle-fill me-1"></i>Verified</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold" style="font-size:13px">Phone Number</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">+977</span>
+                                        <input type="tel" class="form-control" value="9812345678" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold" style="font-size:13px">Date of Birth</label>
+                                    <input type="date" class="form-control" value="1995-08-15" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold" style="font-size:13px">Gender</label>
+                                    <select class="form-select">
+                                        <option selected>Male</option>
+                                        <option>Female</option>
+                                        <option>Prefer not to say</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold" style="font-size:13px">Address</label>
+                                    <input type="text" class="form-control" value="Baneshwor, Kathmandu 44600" />
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold" style="font-size:13px">About / Bio</label>
+                                    <textarea class="form-control" rows="2"
+                                        placeholder="Tell owners a bit about yourself…">Experienced traveler and careful driver. I take great care of rented vehicles.</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary" style="border-radius:10px;min-width:140px">
+                            <i class="bi bi-check-lg me-1"></i> Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Tab: Security -->
+            <div class="tab-panel" id="tab-security">
+                <div class="panel mb-3">
+                    <div class="panel-header">
+                        <h2 class="panel-title">Change Password</h2>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row g-3" style="max-width:500px">
+                            <div class="col-12">
+                                <label class="form-label fw-semibold" style="font-size:13px">Current Password</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" placeholder="Enter current password"
+                                        id="curPwd" />
+                                    <button type="button" class="btn btn-outline-secondary"
+                                        onclick="togglePwd('curPwd',this)"><i class="bi bi-eye"></i></button>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fw-semibold" style="font-size:13px">New Password</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" placeholder="At least 8 characters"
+                                        id="newPwd" oninput="checkStrength(this.value)" />
+                                    <button type="button" class="btn btn-outline-secondary"
+                                        onclick="togglePwd('newPwd',this)"><i class="bi bi-eye"></i></button>
+                                </div>
+                                <div class="mt-2" id="strengthBar"
+                                    style="height:4px;border-radius:4px;background:#e2e8f0;overflow:hidden">
+                                    <div id="strengthFill"
+                                        style="height:100%;border-radius:4px;width:0%;transition:all .3s"></div>
+                                </div>
+                                <div id="strengthText" style="font-size:11px;color:#94a3b8;margin-top:4px"></div>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fw-semibold" style="font-size:13px">Confirm New
+                                    Password</label>
+                                <input type="password" class="form-control" placeholder="Repeat new password" />
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary" style="border-radius:10px"
+                                    onclick="changePassword(event)">Update Password</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2 class="panel-title">Active Sessions</h2>
+                    </div>
+                    <div class="panel-body" style="padding-top:8px;padding-bottom:8px">
+                        <div class="payout-row"
+                            style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid #f1f5f9">
+                            <div class="d-flex align-items-center gap-3">
+                                <div
+                                    style="width:40px;height:40px;background:#dbeafe;border-radius:10px;display:grid;place-items:center">
+                                    <i class="bi bi-laptop text-primary" style="font-size:18px"></i>
+                                </div>
+                                <div>
+                                    <div style="font-size:13px;font-weight:600">Chrome · Windows 11 <span
+                                            class="badge bg-success ms-1" style="font-size:9px">Current</span></div>
+                                    <div style="font-size:11px;color:#64748b">Kathmandu, Nepal · Just now</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0">
+                            <div class="d-flex align-items-center gap-3">
+                                <div
+                                    style="width:40px;height:40px;background:#f1f5f9;border-radius:10px;display:grid;place-items:center">
+                                    <i class="bi bi-phone" style="font-size:18px;color:#64748b"></i>
+                                </div>
+                                <div>
+                                    <div style="font-size:13px;font-weight:600">Safari · iPhone</div>
+                                    <div style="font-size:11px;color:#64748b">Kathmandu, Nepal · 2 days ago</div>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline-danger btn-sm"
+                                style="border-radius:8px;font-size:11px">Revoke</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Payment -->
+            <div class="tab-panel" id="tab-payment">
+                <div class="panel mb-3">
+                    <div class="panel-header">
+                        <h2 class="panel-title">Payment Methods</h2>
+                        <button class="btn btn-primary btn-sm" style="border-radius:8px;font-size:12px"
+                            onclick="openAddPayment()"><i class="bi bi-plus-lg me-1"></i> Add Method</button>
+                    </div>
+                    <div class="panel-body" style="padding-top:8px;padding-bottom:8px">
+                        <!-- Saved Card -->
+                        <div
+                            style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid #f1f5f9">
+                            <div class="d-flex align-items-center gap-3">
+                                <div
+                                    style="width:44px;height:30px;background:#1a56db;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700">
+                                    VISA</div>
+                                <div>
+                                    <div style="font-size:13px;font-weight:600">Visa •••• 4521</div>
+                                    <div style="font-size:11px;color:#64748b">Expires 08/2027 · <span
+                                            style="color:#16a34a">Default</span></div>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-outline-secondary btn-sm"
+                                    style="border-radius:6px;font-size:11px"><i class="bi bi-pencil"></i></button>
+                                <button class="btn btn-outline-danger btn-sm"
+                                    style="border-radius:6px;font-size:11px"><i class="bi bi-trash"></i></button>
+                            </div>
+                        </div>
+                        <!-- Bank -->
+                        <div
+                            style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid #f1f5f9">
+                            <div class="d-flex align-items-center gap-3">
+                                <div
+                                    style="width:44px;height:30px;background:#f1f5f9;border-radius:6px;display:flex;align-items:center;justify-content:center">
+                                    <i class="bi bi-bank text-primary" style="font-size:16px"></i>
+                                </div>
+                                <div>
+                                    <div style="font-size:13px;font-weight:600">NMB Bank ****4521</div>
+                                    <div style="font-size:11px;color:#64748b">Payout account</div>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-outline-secondary btn-sm"
+                                    style="border-radius:6px;font-size:11px"><i class="bi bi-pencil"></i></button>
+                                <button class="btn btn-outline-danger btn-sm"
+                                    style="border-radius:6px;font-size:11px"><i class="bi bi-trash"></i></button>
+                            </div>
+                        </div>
+                        <!-- Khalti -->
+                        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0">
+                            <div class="d-flex align-items-center gap-3">
+                                <div
+                                    style="width:44px;height:30px;background:#5c2d91;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:700">
+                                    Khalti</div>
+                                <div>
+                                    <div style="font-size:13px;font-weight:600">Khalti Wallet</div>
+                                    <div style="font-size:11px;color:#64748b">9812345678</div>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-outline-danger btn-sm"
+                                    style="border-radius:6px;font-size:11px"><i class="bi bi-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Notifications -->
+            <div class="tab-panel" id="tab-notifications">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2 class="panel-title">Notification Preferences</h2>
+                    </div>
+                    <div class="panel-body">
+                        <div style="margin-bottom:20px">
+                            <div
+                                style="font-size:12px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">
+                                Booking Alerts</div>
+                            <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                                <div>
+                                    <div style="font-size:13px;font-weight:600">Booking Confirmed</div>
+                                    <div style="font-size:11px;color:#64748b">When your booking is approved</div>
+                                </div>
+                                <div class="form-check form-switch mb-0"><input class="form-check-input" type="checkbox"
+                                        checked style="width:44px;height:22px;cursor:pointer"></div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                                <div>
+                                    <div style="font-size:13px;font-weight:600">Trip Reminder</div>
+                                    <div style="font-size:11px;color:#64748b">24 hours before pickup</div>
+                                </div>
+                                <div class="form-check form-switch mb-0"><input class="form-check-input" type="checkbox"
+                                        checked style="width:44px;height:22px;cursor:pointer"></div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                                <div>
+                                    <div style="font-size:13px;font-weight:600">New Booking Request</div>
+                                    <div style="font-size:11px;color:#64748b">When someone books your vehicle</div>
+                                </div>
+                                <div class="form-check form-switch mb-0"><input class="form-check-input" type="checkbox"
+                                        checked style="width:44px;height:22px;cursor:pointer"></div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                                <div>
+                                    <div style="font-size:13px;font-weight:600">Booking Cancelled</div>
+                                    <div style="font-size:11px;color:#64748b">When a booking is cancelled</div>
+                                </div>
+                                <div class="form-check form-switch mb-0"><input class="form-check-input" type="checkbox"
+                                        checked style="width:44px;height:22px;cursor:pointer"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom:20px">
+                            <div
+                                style="font-size:12px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">
+                                Payment</div>
+                            <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                                <div>
+                                    <div style="font-size:13px;font-weight:600">Payment Received</div>
+                                    <div style="font-size:11px;color:#64748b">When earnings are deposited</div>
+                                </div>
+                                <div class="form-check form-switch mb-0"><input class="form-check-input" type="checkbox"
+                                        checked style="width:44px;height:22px;cursor:pointer"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div
+                                style="font-size:12px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">
+                                Channels</div>
+                            <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                                <div>
+                                    <div style="font-size:13px;font-weight:600">Email Notifications</div>
+                                </div>
+                                <div class="form-check form-switch mb-0"><input class="form-check-input" type="checkbox"
+                                        checked style="width:44px;height:22px;cursor:pointer"></div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center py-2">
+                                <div>
+                                    <div style="font-size:13px;font-weight:600">SMS Notifications</div>
+                                </div>
+                                <div class="form-check form-switch mb-0"><input class="form-check-input" type="checkbox"
+                                        style="width:44px;height:22px;cursor:pointer"></div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end mt-3">
+                            <button class="btn btn-primary" style="border-radius:10px"
+                                onclick="saveNotifications(event)"><i class="bi bi-check-lg me-1"></i> Save
+                                Preferences</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Verify ID Modal -->
+    <div class="modal fade" id="verifyModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0" style="border-radius:16px">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold">Verify Your Identity</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body px-4 pb-4">
+                    <p style="font-size:13px;color:#64748b;margin-bottom:16px">Upload a clear photo of your
+                        government-issued ID. Accepted: Citizenship, Passport, Driving License.</p>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div style="border:2px dashed #cbd5e1;border-radius:10px;padding:20px;text-align:center;cursor:pointer"
+                                onclick="document.getElementById('idFront').click()">
+                                <i class="bi bi-card-text"
+                                    style="font-size:24px;color:#94a3b8;display:block;margin-bottom:6px"></i>
+                                <div style="font-size:12px;font-weight:600">Front Side</div>
+                            </div>
+                            <input type="file" id="idFront" accept="image/*" style="display:none">
+                        </div>
+                        <div class="col-6">
+                            <div style="border:2px dashed #cbd5e1;border-radius:10px;padding:20px;text-align:center;cursor:pointer"
+                                onclick="document.getElementById('idBack').click()">
+                                <i class="bi bi-card-text"
+                                    style="font-size:24px;color:#94a3b8;display:block;margin-bottom:6px"></i>
+                                <div style="font-size:12px;font-weight:600">Back Side</div>
+                            </div>
+                            <input type="file" id="idBack" accept="image/*" style="display:none">
+                        </div>
+                    </div>
+                    <div class="mt-3 p-3 rounded-3" style="background:#f0f9ff;font-size:11px;color:#1a56db">
+                        <i class="bi bi-shield-lock me-1"></i> Your documents are encrypted and used only for identity
+                        verification.
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal"
+                        style="border-radius:8px">Cancel</button>
+                    <button class="btn btn-primary btn-sm" style="border-radius:8px"><i class="bi bi-upload me-1"></i>
+                        Submit for Review</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Save Toast -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="saveToast" class="toast align-items-center text-bg-success border-0" role="alert">
+            <div class="d-flex">
+                <div class="toast-body"><i class="bi bi-check-circle me-2"></i>Changes saved successfully!</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <script>
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('overlay').classList.toggle('show'); }
+        function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('show'); }
+
+        function switchTab(name, btn) {
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tab-pill button').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-' + name).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        function showToast() {
+            new bootstrap.Toast(document.getElementById('saveToast'), { delay: 2500 }).show();
+        }
+
+        function saveProfile(e) { e.preventDefault(); showToast(); }
+        function saveNotifications(e) { e.preventDefault(); showToast(); }
+
+        function changePassword(e) {
+            e.preventDefault();
+            showToast();
+        }
+
+        function togglePwd(id, btn) {
+            var inp = document.getElementById(id);
+            if (inp.type === 'password') {
+                inp.type = 'text';
+                btn.innerHTML = '<i class="bi bi-eye-slash"></i>';
+            } else {
+                inp.type = 'password';
+                btn.innerHTML = '<i class="bi bi-eye"></i>';
+            }
+        }
+
+        function checkStrength(val) {
+            var fill = document.getElementById('strengthFill');
+            var text = document.getElementById('strengthText');
+            if (!val) { fill.style.width = '0%'; text.textContent = ''; return; }
+            var score = 0;
+            if (val.length >= 8) score++;
+            if (/[A-Z]/.test(val)) score++;
+            if (/[0-9]/.test(val)) score++;
+            if (/[^A-Za-z0-9]/.test(val)) score++;
+            var colors = ['#dc2626', '#f97316', '#eab308', '#16a34a'];
+            var labels = ['Weak', 'Fair', 'Good', 'Strong'];
+            fill.style.width = (score * 25) + '%';
+            fill.style.background = colors[score - 1] || '#e2e8f0';
+            text.textContent = labels[score - 1] || '';
+            text.style.color = colors[score - 1] || '#94a3b8';
+        }
+
+        function openVerifyModal() {
+            new bootstrap.Modal(document.getElementById('verifyModal')).show();
+        }
+
+        function openAddPayment() {
+            alert('Add payment method — connect to your C backend POST /api/payment-methods');
+        }
+    </script>
+</body>
+
+</html>
