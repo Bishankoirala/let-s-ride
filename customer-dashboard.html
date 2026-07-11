@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Dashboard — VehicleRent</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="dashboard.css" />
+</head>
+
+<body>
+
+    <aside class="sidebar" id="sidebar">
+        <a href="index.html" class="sidebar-brand">
+            <div class="brand-icon"><i class="bi bi-car-front-fill"></i></div>
+            <div><span>VehicleRent</span><small>Customer Portal</small></div>
+        </a>
+        <nav class="sidebar-nav">
+            <div class="nav-label">Main</div>
+            <a href="customer-dashboard.html" class="nav-link active"><i class="bi bi-grid-1x2-fill"></i> Dashboard</a>
+            <a href="#" class="nav-link"><i class="bi bi-search"></i> Browse Vehicles</a>
+            <a href="my-bookings.html" class="nav-link"><i class="bi bi-calendar2-check"></i> My Bookings <span
+                    class="badge bg-primary ms-auto" style="font-size:10px">3</span></a>
+            <div class="nav-label">Account</div>
+            <a href="profile.html" class="nav-link"><i class="bi bi-person-circle"></i> Profile</a>
+            <a href="payments.html" class="nav-link"><i class="bi bi-credit-card"></i> Payments</a>
+            <a href="reviews.html" class="nav-link"><i class="bi bi-star"></i> My Reviews</a>
+            <div class="nav-label">Switch</div>
+            <a href="owner-dashboard.html" class="nav-link"><i class="bi bi-shop"></i> Owner Portal</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="profile.html" class="user-card">
+                <div class="user-avatar">JD</div>
+                <div class="user-info"><strong>John Doe</strong><small>john.doe@email.com</small></div>
+                <i class="bi bi-chevron-right" style="color:#94a3b8;font-size:12px"></i>
+            </a>
+            <a href="login.html" class="btn btn-outline-danger btn-sm w-100 mt-2"
+                style="border-radius:8px;font-size:12px">
+                <i class="bi bi-box-arrow-right me-1"></i> Sign Out
+            </a>
+        </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="overlay" onclick="closeSidebar()"></div>
+
+    <header class="topbar">
+        <button class="sidebar-toggle" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
+        <h1 class="page-title">Dashboard</h1>
+        <div class="search-wrap">
+            <i class="bi bi-search"></i>
+            <input type="text" class="form-control" placeholder="Search vehicles, bookings…" />
+        </div>
+        <div class="topbar-action" data-bs-toggle="dropdown" tabindex="0">
+            <i class="bi bi-bell"></i>
+            <span class="badge-dot"></span>
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm"
+                style="width:300px;padding:0;border-radius:12px;overflow:hidden">
+                <li class="px-3 py-2 border-bottom d-flex justify-content-between align-items-center">
+                    <strong style="font-size:14px">Notifications</strong>
+                    <a href="#" style="font-size:12px;color:#1a56db">Mark all read</a>
+                </li>
+                <li class="notif-list px-3 py-1">
+                    <div class="notif-item">
+                        <div class="notif-dot"></div>
+                        <div>
+                            <div style="font-size:13px;font-weight:600">Booking Confirmed</div>
+                            <div style="font-size:11px;color:#64748b">Toyota Camry · Jun 20–23</div>
+                        </div>
+                    </div>
+                    <div class="notif-item">
+                        <div class="notif-dot"></div>
+                        <div>
+                            <div style="font-size:13px;font-weight:600">Trip Starting Tomorrow</div>
+                            <div style="font-size:11px;color:#64748b">Honda CR-V · Pickup 9:00 AM</div>
+                        </div>
+                    </div>
+                    <div class="notif-item">
+                        <div class="notif-dot read"></div>
+                        <div>
+                            <div style="font-size:13px;font-weight:600;color:#94a3b8">Payment Receipt</div>
+                            <div style="font-size:11px;color:#94a3b8">$320 processed</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="border-top text-center py-2"><a href="#" style="font-size:12px;color:#1a56db">View all</a>
+                </li>
+            </ul>
+        </div>
+        <div class="user-avatar" style="width:38px;height:38px;font-size:14px;cursor:pointer" data-bs-toggle="dropdown">
+            JD</div>
+        <ul class="dropdown-menu dropdown-menu-end shadow-sm" style="border-radius:10px;min-width:180px;font-size:13px">
+            <li><a class="dropdown-item py-2" href="profile.html"><i class="bi bi-person me-2"></i>Profile</a></li>
+            <li><a class="dropdown-item py-2" href="payments.html"><i class="bi bi-credit-card me-2"></i>Payments</a>
+            </li>
+            <li>
+                <hr class="dropdown-divider my-1">
+            </li>
+            <li><a class="dropdown-item py-2 text-danger" href="login.html"><i
+                        class="bi bi-box-arrow-right me-2"></i>Sign Out</a></li>
+        </ul>
+    </header>
+
+    <main class="main-content">
+        <div class="content-body">
+
+            <!-- Welcome Banner -->
+            <div class="p-4 mb-4 rounded-3 text-white"
+                style="background:linear-gradient(135deg,#1a56db,#1e40af);position:relative;overflow:hidden">
+                <div
+                    style="position:absolute;right:-20px;top:-20px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.07)">
+                </div>
+                <h4 class="fw-bold mb-1">Good morning, John! 👋</h4>
+                <p class="mb-3" style="opacity:.85;font-size:14px">You have <strong>1 active rental</strong> and
+                    <strong>2 upcoming bookings</strong>.</p>
+                <a href="#" class="btn btn-light btn-sm fw-semibold" style="border-radius:8px;color:#1a56db"><i
+                        class="bi bi-search me-1"></i> Book a Vehicle</a>
+            </div>
+
+            <!-- Stat Cards -->
+            <div class="row g-3 mb-4">
+                <div class="col-6 col-xl-3">
+                    <div class="stat-card">
+                        <div class="stat-icon blue"><i class="bi bi-calendar2-check"></i></div>
+                        <div>
+                            <div class="stat-value">8</div>
+                            <div class="stat-label">Total Bookings</div>
+                            <div class="stat-change up"><i class="bi bi-arrow-up-short"></i> 2 this month</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-xl-3">
+                    <div class="stat-card">
+                        <div class="stat-icon green"><i class="bi bi-car-front"></i></div>
+                        <div>
+                            <div class="stat-value">1</div>
+                            <div class="stat-label">Active Rental</div>
+                            <div class="stat-change up">Returns Jun 23</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-xl-3">
+                    <div class="stat-card">
+                        <div class="stat-icon orange"><i class="bi bi-clock-history"></i></div>
+                        <div>
+                            <div class="stat-value">2</div>
+                            <div class="stat-label">Upcoming</div>
+                            <div class="stat-change up">Next: Jun 25</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-xl-3">
+                    <div class="stat-card">
+                        <div class="stat-icon purple"><i class="bi bi-currency-dollar"></i></div>
+                        <div>
+                            <div class="stat-value">$1,240</div>
+                            <div class="stat-label">Total Spent</div>
+                            <div class="stat-change down"><i class="bi bi-arrow-down-short"></i> vs last month</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions + Active Rental -->
+            <div class="row g-3 mb-4">
+                <div class="col-lg-4">
+                    <div class="panel h-100">
+                        <div class="panel-header">
+                            <h2 class="panel-title">Quick Actions</h2>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row g-2">
+                                <div class="col-6"><a href="#" class="quick-action"><i
+                                            class="bi bi-search"></i><span>Browse Cars</span></a></div>
+                                <div class="col-6"><a href="my-bookings.html" class="quick-action"><i
+                                            class="bi bi-calendar2-check"></i><span>My Bookings</span></a></div>
+                                <div class="col-6"><a href="payments.html" class="quick-action"><i
+                                            class="bi bi-credit-card"></i><span>Payments</span></a></div>
+                                <div class="col-6"><a href="profile.html" class="quick-action"><i
+                                            class="bi bi-person-circle"></i><span>Profile</span></a></div>
+                                <div class="col-6"><a href="reviews.html" class="quick-action"><i
+                                            class="bi bi-star"></i><span>Reviews</span></a></div>
+                                <div class="col-6"><a href="help.html" class="quick-action"><i
+                                            class="bi bi-headset"></i><span>Support</span></a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="panel h-100">
+                        <div class="panel-header">
+                            <h2 class="panel-title">Active Rental</h2><span class="badge-status active">In
+                                Progress</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row g-3 align-items-center">
+                                <div class="col-sm-5">
+                                    <div class="vehicle-img rounded-3" style="height:130px;font-size:60px">🚗</div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <h5 class="fw-bold mb-1">Toyota Camry 2022</h5>
+                                    <div class="d-flex flex-wrap gap-2 mb-3">
+                                        <span class="vehicle-spec"><i class="bi bi-fuel-pump"></i> Hybrid</span>
+                                        <span class="vehicle-spec"><i class="bi bi-people"></i> 5 seats</span>
+                                        <span class="vehicle-spec"><i class="bi bi-geo-alt"></i> Downtown</span>
+                                    </div>
+                                    <div class="row g-2 text-center mb-3">
+                                        <div class="col-4">
+                                            <div style="background:#f8fafc;border-radius:8px;padding:8px">
+                                                <div style="font-size:11px;color:#64748b">Pickup</div>
+                                                <div style="font-size:13px;font-weight:700">Jun 20</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div style="background:#f8fafc;border-radius:8px;padding:8px">
+                                                <div style="font-size:11px;color:#64748b">Return</div>
+                                                <div style="font-size:13px;font-weight:700">Jun 23</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div style="background:#f8fafc;border-radius:8px;padding:8px">
+                                                <div style="font-size:11px;color:#64748b">Days Left</div>
+                                                <div style="font-size:13px;font-weight:700;color:#1a56db">3</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-1 d-flex justify-content-between"
+                                        style="font-size:11px;color:#64748b"><span>Rental
+                                            Progress</span><span>33%</span></div>
+                                    <div class="prog-track mb-3">
+                                        <div class="prog-fill" style="width:33%"></div>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <a href="#" class="btn btn-primary btn-sm flex-fill"
+                                            style="border-radius:8px;font-size:12px"><i
+                                                class="bi bi-telephone me-1"></i> Contact Owner</a>
+                                        <a href="#" class="btn btn-outline-secondary btn-sm flex-fill"
+                                            style="border-radius:8px;font-size:12px"><i class="bi bi-map me-1"></i> View
+                                            Map</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Bookings + Recommended -->
+            <div class="row g-3 mb-4">
+                <div class="col-lg-5">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h2 class="panel-title">Recent Bookings</h2><a href="my-bookings.html"
+                                style="font-size:12px;color:#1a56db;text-decoration:none">View all →</a>
+                        </div>
+                        <div class="panel-body" style="padding-top:8px;padding-bottom:8px">
+                            <div class="booking-item">
+                                <div class="booking-thumb">🚙</div>
+                                <div class="booking-meta"><strong>Honda CR-V 2023</strong><span><i
+                                            class="bi bi-calendar3"></i> Jun 25–28</span></div><span
+                                    class="badge-status confirmed">Confirmed</span>
+                            </div>
+                            <div class="booking-item">
+                                <div class="booking-thumb">🚗</div>
+                                <div class="booking-meta"><strong>Toyota Camry 2022</strong><span><i
+                                            class="bi bi-calendar3"></i> Jun 20–23</span></div><span
+                                    class="badge-status active">Active</span>
+                            </div>
+                            <div class="booking-item">
+                                <div class="booking-thumb">🚐</div>
+                                <div class="booking-meta"><strong>Ford Transit 2021</strong><span><i
+                                            class="bi bi-calendar3"></i> Jun 10–12</span></div><span
+                                    class="badge-status completed">Completed</span>
+                            </div>
+                            <div class="booking-item">
+                                <div class="booking-thumb">🏎️</div>
+                                <div class="booking-meta"><strong>BMW 3 Series 2022</strong><span><i
+                                            class="bi bi-calendar3"></i> May 28–30</span></div><span
+                                    class="badge-status completed">Completed</span>
+                            </div>
+                            <div class="booking-item">
+                                <div class="booking-thumb">🚕</div>
+                                <div class="booking-meta"><strong>Nissan Altima 2020</strong><span><i
+                                            class="bi bi-calendar3"></i> May 15–16</span></div><span
+                                    class="badge-status cancelled">Cancelled</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h2 class="panel-title">Recommended For You</h2><a href="#"
+                                style="font-size:12px;color:#1a56db;text-decoration:none">Browse all →</a>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row g-3">
+                                <div class="col-sm-6">
+                                    <div class="vehicle-card">
+                                        <div class="vehicle-img" style="font-size:46px;height:120px">🚙<span
+                                                class="avail-badge badge-status confirmed"
+                                                style="font-size:10px">Available</span></div>
+                                        <div class="vehicle-body">
+                                            <div class="vehicle-name">Honda CR-V 2023</div>
+                                            <div class="vehicle-specs"><span class="vehicle-spec"><i
+                                                        class="bi bi-fuel-pump"></i> Petrol</span><span
+                                                    class="vehicle-spec"><i class="bi bi-people"></i> 5</span><span
+                                                    class="vehicle-spec"><i class="bi bi-star-fill"
+                                                        style="color:#f59e0b"></i> 4.8</span></div>
+                                        </div>
+                                        <div class="vehicle-footer">
+                                            <div class="vehicle-price">$85 <span>/ day</span></div><a href="#"
+                                                class="btn btn-primary btn-sm"
+                                                style="border-radius:8px;font-size:12px">Book</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="vehicle-card">
+                                        <div class="vehicle-img" style="font-size:46px;height:120px">🏎️<span
+                                                class="avail-badge badge-status confirmed"
+                                                style="font-size:10px">Available</span></div>
+                                        <div class="vehicle-body">
+                                            <div class="vehicle-name">BMW 3 Series 2022</div>
+                                            <div class="vehicle-specs"><span class="vehicle-spec"><i
+                                                        class="bi bi-fuel-pump"></i> Petrol</span><span
+                                                    class="vehicle-spec"><i class="bi bi-people"></i> 5</span><span
+                                                    class="vehicle-spec"><i class="bi bi-star-fill"
+                                                        style="color:#f59e0b"></i> 4.9</span></div>
+                                        </div>
+                                        <div class="vehicle-footer">
+                                            <div class="vehicle-price">$120 <span>/ day</span></div><a href="#"
+                                                class="btn btn-primary btn-sm"
+                                                style="border-radius:8px;font-size:12px">Book</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upcoming Table -->
+            <div class="panel mb-4">
+                <div class="panel-header">
+                    <h2 class="panel-title">Upcoming Bookings</h2><a href="my-bookings.html"
+                        style="font-size:12px;color:#1a56db;text-decoration:none">Manage →</a>
+                </div>
+                <div style="overflow-x:auto">
+                    <table class="dash-table">
+                        <thead>
+                            <tr>
+                                <th>Vehicle</th>
+                                <th>Pickup</th>
+                                <th>Return</th>
+                                <th>Duration</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2"><span style="font-size:22px">🚙</span>
+                                        <div>
+                                            <div style="font-weight:600">Honda CR-V 2023</div>
+                                            <div style="font-size:11px;color:#64748b">Downtown Garage</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Jun 25, 2026</td>
+                                <td>Jun 28, 2026</td>
+                                <td>3 days</td>
+                                <td style="font-weight:700;color:#1a56db">$255</td>
+                                <td><span class="badge-status confirmed">Confirmed</span></td>
+                                <td>
+                                    <div class="d-flex gap-1"><a href="#" class="btn btn-outline-primary btn-sm"
+                                            style="border-radius:6px;font-size:11px">Details</a><a href="#"
+                                            class="btn btn-outline-danger btn-sm"
+                                            style="border-radius:6px;font-size:11px">Cancel</a></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2"><span style="font-size:22px">🚐</span>
+                                        <div>
+                                            <div style="font-weight:600">Ford Transit 2021</div>
+                                            <div style="font-size:11px;color:#64748b">Airport Terminal B</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Jul 4, 2026</td>
+                                <td>Jul 7, 2026</td>
+                                <td>3 days</td>
+                                <td style="font-weight:700;color:#1a56db">$210</td>
+                                <td><span class="badge-status pending">Pending</span></td>
+                                <td>
+                                    <div class="d-flex gap-1"><a href="#" class="btn btn-outline-primary btn-sm"
+                                            style="border-radius:6px;font-size:11px">Details</a><a href="#"
+                                            class="btn btn-outline-danger btn-sm"
+                                            style="border-radius:6px;font-size:11px">Cancel</a></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('show');
+        }
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('show');
+        }
+    </script>
+</body>
+
+</html>
