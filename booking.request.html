@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booking Requests — VehicleRent</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="dashboard-styles.css" />
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <a href="index.html" class="sidebar-brand">
+    <div class="brand-icon"><i class="bi bi-car-front-fill"></i></div>
+    <div><span>VehicleRent</span><small>Owner Portal</small></div>
+  </a>
+  <nav class="sidebar-nav">
+    <div class="nav-label">Main</div>
+    <a href="owner-dashboard.html" class="nav-link"><i class="bi bi-grid-1x2-fill"></i> Dashboard</a>
+    <a href="my-vehicle.html" class="nav-link"><i class="bi bi-car-front"></i> My Vehicles</a>
+    <a href="booking-request.html" class="nav-link active"><i class="bi bi-inbox"></i> Booking Requests <span class="badge bg-warning text-dark ms-auto" style="font-size:10px" id="pendingBadge">2</span></a>
+    <a href="earnings.html" class="nav-link"><i class="bi bi-graph-up-arrow"></i> Earnings</a>
+    <div class="nav-label">Manage</div>
+    <a href="add-vehicle.html" class="nav-link"><i class="bi bi-plus-circle"></i> Add Vehicle</a>
+    <a href="reviews.html" class="nav-link"><i class="bi bi-star"></i> Reviews</a>
+    <div class="nav-label">Account</div>
+    <a href="profile.html" class="nav-link"><i class="bi bi-person-circle"></i> Profile</a>
+    <div class="nav-label">Switch</div>
+    <a href="customer-dashboard.html" class="nav-link"><i class="bi bi-person"></i> Customer Portal</a>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="profile.html" class="user-card">
+      <div class="user-avatar">MS</div>
+      <div class="user-info"><strong>Mark Smith</strong><small>mark.smith@email.com</small></div>
+    </a>
+    <a href="vehicle-login.html" class="btn btn-outline-danger btn-sm w-100 mt-2" style="border-radius:8px;font-size:12px">
+      <i class="bi bi-box-arrow-right me-1"></i> Sign Out
+    </a>
+  </div>
+</aside>
+<div class="sidebar-overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<header class="topbar">
+  <button class="sidebar-toggle" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
+  <h1 class="page-title">Booking Requests</h1>
+  <div class="search-wrap">
+    <i class="bi bi-search"></i>
+    <input type="text" class="form-control" placeholder="Search by renter, vehicle…" />
+  </div>
+  <div class="user-avatar" style="width:38px;height:38px;font-size:14px;cursor:pointer">MS</div>
+</header>
+
+<main class="main-content">
+  <div class="content-body">
+
+    <!-- Stats -->
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-md-3">
+        <div class="stat-card"><div class="stat-icon orange"><i class="bi bi-clock"></i></div><div><div class="stat-value" id="statPending">2</div><div class="stat-label">Pending</div></div></div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card"><div class="stat-icon green"><i class="bi bi-check-circle"></i></div><div><div class="stat-value">18</div><div class="stat-label">Approved</div></div></div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card"><div class="stat-icon red"><i class="bi bi-x-circle"></i></div><div><div class="stat-value">3</div><div class="stat-label">Declined</div></div></div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card"><div class="stat-icon blue"><i class="bi bi-percent"></i></div><div><div class="stat-value">86%</div><div class="stat-label">Accept Rate</div></div></div>
+      </div>
+    </div>
+
+    <!-- Pending Requests (highlighted) -->
+    <div class="panel mb-4" style="border-color:#fbbf24">
+      <div class="panel-header" style="background:#fffbeb">
+        <h2 class="panel-title" style="color:#b45309"><i class="bi bi-clock-fill me-2 text-warning"></i>Pending Requests — Action Required</h2>
+        <span style="font-size:12px;color:#b45309" id="pendingCount">2 awaiting response</span>
+      </div>
+
+      <!-- Request Card 1 -->
+      <div class="panel-body border-bottom" id="req-1">
+        <div class="row g-3 align-items-center">
+          <div class="col-md-5">
+            <div class="d-flex align-items-center gap-3">
+              <div class="user-avatar" style="width:48px;height:48px;font-size:18px;flex-shrink:0">JD</div>
+              <div>
+                <div style="font-weight:700;font-size:14px">John Doe</div>
+                <div style="font-size:12px;color:#64748b"><i class="bi bi-star-fill text-warning"></i> 4.9 · 12 trips · Member since 2024</div>
+                <div style="font-size:11px;color:#94a3b8;margin-top:2px">john.doe@email.com · +977 98XXXXXXXX</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div style="background:#f8fafc;border-radius:10px;padding:12px">
+              <div style="font-weight:600;font-size:13px">🚙 Honda CR-V 2023</div>
+              <div style="font-size:12px;color:#64748b;margin-top:4px"><i class="bi bi-calendar3 me-1"></i>Jun 25, 2026 – Jun 28, 2026</div>
+              <div style="font-size:12px;color:#64748b"><i class="bi bi-clock me-1"></i>3 days</div>
+              <div style="font-size:14px;font-weight:800;color:#1a56db;margin-top:4px">NPR 3,825 <span style="font-size:11px;font-weight:400;color:#94a3b8">(you get NPR 3,443)</span></div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div style="font-size:11px;color:#94a3b8;margin-bottom:8px"><i class="bi bi-clock me-1"></i>Requested 2 hours ago</div>
+            <div class="d-grid gap-2">
+              <button class="btn btn-success btn-sm" style="border-radius:8px" onclick="handleRequest('req-1','approve')">
+                <i class="bi bi-check-lg me-1"></i> Approve
+              </button>
+              <button class="btn btn-outline-danger btn-sm" style="border-radius:8px" onclick="handleRequest('req-1','decline')">
+                <i class="bi bi-x-lg me-1"></i> Decline
+              </button>
+              <button class="btn btn-outline-secondary btn-sm" style="border-radius:8px;font-size:11px" onclick="viewRenterProfile('JD')">
+                <i class="bi bi-person me-1"></i> View Profile
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Request Card 2 -->
+      <div class="panel-body" id="req-2">
+        <div class="row g-3 align-items-center">
+          <div class="col-md-5">
+            <div class="d-flex align-items-center gap-3">
+              <div class="user-avatar" style="width:48px;height:48px;font-size:18px;flex-shrink:0;background:#7c3aed">SA</div>
+              <div>
+                <div style="font-weight:700;font-size:14px">Sara Adams</div>
+                <div style="font-size:12px;color:#64748b"><i class="bi bi-star-fill text-warning"></i> 4.7 · 5 trips · Member since 2025</div>
+                <div style="font-size:11px;color:#94a3b8;margin-top:2px">sara.adams@email.com · +977 98XXXXXXXX</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div style="background:#f8fafc;border-radius:10px;padding:12px">
+              <div style="font-weight:600;font-size:13px">🚗 Toyota Camry 2022</div>
+              <div style="font-size:12px;color:#64748b;margin-top:4px"><i class="bi bi-calendar3 me-1"></i>Jul 4, 2026 – Jul 7, 2026</div>
+              <div style="font-size:12px;color:#64748b"><i class="bi bi-clock me-1"></i>3 days</div>
+              <div style="font-size:14px;font-weight:800;color:#1a56db;margin-top:4px">NPR 3,150 <span style="font-size:11px;font-weight:400;color:#94a3b8">(you get NPR 2,835)</span></div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div style="font-size:11px;color:#94a3b8;margin-bottom:8px"><i class="bi bi-clock me-1"></i>Requested 5 hours ago</div>
+            <div class="d-grid gap-2">
+              <button class="btn btn-success btn-sm" style="border-radius:8px" onclick="handleRequest('req-2','approve')">
+                <i class="bi bi-check-lg me-1"></i> Approve
+              </button>
+              <button class="btn btn-outline-danger btn-sm" style="border-radius:8px" onclick="handleRequest('req-2','decline')">
+                <i class="bi bi-x-lg me-1"></i> Decline
+              </button>
+              <button class="btn btn-outline-secondary btn-sm" style="border-radius:8px;font-size:11px" onclick="viewRenterProfile('SA')">
+                <i class="bi bi-person me-1"></i> View Profile
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Requests History -->
+    <div class="panel">
+      <div class="panel-header">
+        <h2 class="panel-title">All Requests</h2>
+        <div class="d-flex gap-2">
+          <select class="form-select form-select-sm" style="width:auto;border-radius:8px;font-size:12px" onchange="filterRequests(this.value)">
+            <option value="all">All Status</option>
+            <option value="pending">Pending</option>
+            <option value="approved">Approved</option>
+            <option value="declined">Declined</option>
+          </select>
+        </div>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="dash-table" id="requestsTable">
+          <thead>
+            <tr><th>Renter</th><th>Vehicle</th><th>Dates</th><th>Amount</th><th>Requested</th><th>Status</th><th>Actions</th></tr>
+          </thead>
+          <tbody>
+            <tr data-status="pending"><td><div class="d-flex align-items-center gap-2"><div class="user-avatar" style="width:30px;height:30px;font-size:11px">JD</div><div><div style="font-weight:600;font-size:13px">John Doe</div><div style="font-size:10px;color:#64748b">⭐ 4.9 · 12 trips</div></div></div></td><td style="font-size:13px">Honda CR-V 2023</td><td style="font-size:12px">Jun 25–28, 2026</td><td style="font-weight:700;color:#1a56db">NPR 3,825</td><td style="font-size:11px;color:#64748b">2h ago</td><td><span class="badge-status pending">Pending</span></td><td><div class="d-flex gap-1"><button class="btn btn-success btn-sm" style="border-radius:6px;font-size:10px" onclick="quickApprove(this)">Approve</button><button class="btn btn-outline-danger btn-sm" style="border-radius:6px;font-size:10px" onclick="quickDecline(this)">Decline</button></div></td></tr>
+            <tr data-status="pending"><td><div class="d-flex align-items-center gap-2"><div class="user-avatar" style="width:30px;height:30px;font-size:11px;background:#7c3aed">SA</div><div><div style="font-weight:600;font-size:13px">Sara Adams</div><div style="font-size:10px;color:#64748b">⭐ 4.7 · 5 trips</div></div></div></td><td style="font-size:13px">Toyota Camry 2022</td><td style="font-size:12px">Jul 4–7, 2026</td><td style="font-weight:700;color:#1a56db">NPR 3,150</td><td style="font-size:11px;color:#64748b">5h ago</td><td><span class="badge-status pending">Pending</span></td><td><div class="d-flex gap-1"><button class="btn btn-success btn-sm" style="border-radius:6px;font-size:10px" onclick="quickApprove(this)">Approve</button><button class="btn btn-outline-danger btn-sm" style="border-radius:6px;font-size:10px" onclick="quickDecline(this)">Decline</button></div></td></tr>
+            <tr data-status="approved"><td><div class="d-flex align-items-center gap-2"><div class="user-avatar" style="width:30px;height:30px;font-size:11px;background:#059669">RK</div><div><div style="font-weight:600;font-size:13px">Raj Kumar</div><div style="font-size:10px;color:#64748b">⭐ 4.8 · 8 trips</div></div></div></td><td style="font-size:13px">Toyota Camry 2022</td><td style="font-size:12px">Jun 20–23, 2026</td><td style="font-weight:700">NPR 3,150</td><td style="font-size:11px;color:#64748b">2 days ago</td><td><span class="badge-status confirmed">Approved</span></td><td><div class="d-flex gap-1"><button class="btn btn-outline-primary btn-sm" style="border-radius:6px;font-size:10px"><i class="bi bi-telephone"></i></button><button class="btn btn-outline-secondary btn-sm" style="border-radius:6px;font-size:10px"><i class="bi bi-eye"></i></button></div></td></tr>
+            <tr data-status="approved"><td><div class="d-flex align-items-center gap-2"><div class="user-avatar" style="width:30px;height:30px;font-size:11px;background:#d97706">PM</div><div><div style="font-weight:600;font-size:13px">Priya Mehta</div><div style="font-size:10px;color:#64748b">⭐ 5.0 · 3 trips</div></div></div></td><td style="font-size:13px">Honda CR-V 2023</td><td style="font-size:12px">Jun 15–17, 2026</td><td style="font-weight:700">NPR 2,550</td><td style="font-size:11px;color:#64748b">5 days ago</td><td><span class="badge-status confirmed">Approved</span></td><td><div class="d-flex gap-1"><button class="btn btn-outline-primary btn-sm" style="border-radius:6px;font-size:10px"><i class="bi bi-telephone"></i></button><button class="btn btn-outline-secondary btn-sm" style="border-radius:6px;font-size:10px"><i class="bi bi-eye"></i></button></div></td></tr>
+            <tr data-status="declined"><td><div class="d-flex align-items-center gap-2"><div class="user-avatar" style="width:30px;height:30px;font-size:11px;background:#94a3b8">BT</div><div><div style="font-weight:600;font-size:13px;color:#94a3b8">Bob Thapa</div><div style="font-size:10px;color:#94a3b8">⭐ 3.2 · 1 trip</div></div></div></td><td style="font-size:13px;color:#94a3b8">BMW 3 Series 2022</td><td style="font-size:12px;color:#94a3b8">Jun 22–24, 2026</td><td style="font-weight:700;color:#94a3b8">NPR 3,600</td><td style="font-size:11px;color:#94a3b8">6 days ago</td><td><span class="badge-status cancelled">Declined</span></td><td><span style="font-size:11px;color:#94a3b8">Low rating</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- Renter Profile Modal -->
+<div class="modal fade" id="renterModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0" style="border-radius:16px">
+      <div class="modal-header border-0">
+        <h5 class="modal-title fw-bold">Renter Profile</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body px-4 pb-4">
+        <div class="text-center mb-4">
+          <div class="user-avatar" style="width:64px;height:64px;font-size:24px;margin:0 auto" id="modalAvatar">JD</div>
+          <h5 class="fw-bold mt-3 mb-0" id="modalName">John Doe</h5>
+          <div style="font-size:12px;color:#64748b">Member since January 2024</div>
+          <div class="d-flex justify-content-center gap-3 mt-2">
+            <span style="font-size:13px"><i class="bi bi-star-fill text-warning"></i> 4.9</span>
+            <span style="font-size:13px;color:#64748b">12 trips</span>
+            <span style="font-size:13px;color:#16a34a"><i class="bi bi-shield-check me-1"></i>Verified</span>
+          </div>
+        </div>
+        <div class="row g-2 text-center mb-3">
+          <div class="col-4"><div style="background:#f8fafc;border-radius:8px;padding:10px"><div style="font-size:16px;font-weight:800;color:#1a56db">12</div><div style="font-size:10px;color:#64748b">Total Trips</div></div></div>
+          <div class="col-4"><div style="background:#f8fafc;border-radius:8px;padding:10px"><div style="font-size:16px;font-weight:800;color:#16a34a">100%</div><div style="font-size:10px;color:#64748b">On-time Returns</div></div></div>
+          <div class="col-4"><div style="background:#f8fafc;border-radius:8px;padding:10px"><div style="font-size:16px;font-weight:800">0</div><div style="font-size:10px;color:#64748b">Cancellations</div></div></div>
+        </div>
+        <div class="p-3 rounded-3" style="background:#f0fdf4;border:1px solid #bbf7d0">
+          <div style="font-size:12px;font-weight:600;color:#16a34a"><i class="bi bi-shield-check me-1"></i>Government ID Verified · Driving License Verified</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script>
+  function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('overlay').classList.toggle('show'); }
+  function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('show'); }
+
+  function handleRequest(id, action) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.style.opacity = '.5';
+    el.style.pointerEvents = 'none';
+    var badge = action === 'approve'
+      ? '<span class="badge-status confirmed">Approved ✓</span>'
+      : '<span class="badge-status cancelled">Declined</span>';
+    el.querySelector('.d-grid').innerHTML = badge;
+    updatePendingCount(-1);
+  }
+
+  function quickApprove(btn) {
+    var row = btn.closest('tr');
+    row.querySelector('.badge-status').className = 'badge-status confirmed';
+    row.querySelector('.badge-status').textContent = 'Approved';
+    row.setAttribute('data-status','approved');
+    row.querySelector('td:last-child').innerHTML = '<span style="font-size:11px;color:#16a34a"><i class="bi bi-check-circle me-1"></i>Done</span>';
+    updatePendingCount(-1);
+  }
+
+  function quickDecline(btn) {
+    var row = btn.closest('tr');
+    row.querySelector('.badge-status').className = 'badge-status cancelled';
+    row.querySelector('.badge-status').textContent = 'Declined';
+    row.setAttribute('data-status','declined');
+    row.querySelector('td:last-child').innerHTML = '<span style="font-size:11px;color:#64748b">Declined</span>';
+    updatePendingCount(-1);
+  }
+
+  var pending = 2;
+  function updatePendingCount(delta) {
+    pending += delta;
+    if (pending < 0) pending = 0;
+    document.getElementById('pendingBadge').textContent = pending;
+    document.getElementById('statPending').textContent = pending;
+    document.getElementById('pendingCount').textContent = pending + ' awaiting response';
+  }
+
+  function filterRequests(status) {
+    document.querySelectorAll('#requestsTable tbody tr').forEach(function(row) {
+      row.style.display = (status === 'all' || row.getAttribute('data-status') === status) ? '' : 'none';
+    });
+  }
+
+  function viewRenterProfile(initials) {
+    document.getElementById('modalAvatar').textContent = initials;
+    document.getElementById('modalName').textContent = initials === 'JD' ? 'John Doe' : 'Sara Adams';
+    new bootstrap.Modal(document.getElementById('renterModal')).show();
+  }
+</script>
+</body>
+</html>
