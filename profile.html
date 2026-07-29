@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+ 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,7 +17,7 @@
             display: inline-block;
             cursor: pointer;
         }
-
+ 
         .avatar-upload .avatar-big {
             width: 100px;
             height: 100px;
@@ -32,7 +32,7 @@
             border: 4px solid #fff;
             box-shadow: 0 4px 14px rgba(26, 86, 219, .3);
         }
-
+ 
         .avatar-upload .avatar-edit-btn {
             position: absolute;
             bottom: 2px;
@@ -48,7 +48,7 @@
             font-size: 12px;
             border: 2px solid #fff;
         }
-
+ 
         .verify-badge {
             display: inline-flex;
             align-items: center;
@@ -58,17 +58,17 @@
             font-size: 11px;
             font-weight: 600;
         }
-
+ 
         .verify-badge.verified {
             background: #dcfce7;
             color: #16a34a;
         }
-
+ 
         .verify-badge.unverified {
             background: #fee2e2;
             color: #dc2626;
         }
-
+ 
         .tab-pill {
             display: flex;
             gap: 4px;
@@ -77,7 +77,7 @@
             padding: 4px;
             margin-bottom: 20px;
         }
-
+ 
         .tab-pill button {
             flex: 1;
             padding: 8px;
@@ -90,26 +90,39 @@
             cursor: pointer;
             transition: all .2s;
         }
-
+ 
         .tab-pill button.active {
             background: #fff;
             color: #1a56db;
             font-weight: 700;
             box-shadow: 0 1px 4px rgba(0, 0, 0, .08);
         }
-
+ 
         .tab-panel {
             display: none;
         }
-
+ 
         .tab-panel.active {
+            display: block;
+        }
+ 
+        .loader {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+ 
+        .loader.show {
             display: block;
         }
     </style>
 </head>
-
+ 
 <body>
-
+ 
     <aside class="sidebar" id="sidebar">
         <a href="index.html" class="sidebar-brand">
             <div class="brand-icon"><i class="bi bi-car-front-fill"></i></div>
@@ -130,33 +143,33 @@
         </nav>
         <div class="sidebar-footer">
             <a href="profile.html" class="user-card">
-                <div class="user-avatar">JD</div>
-                <div class="user-info"><strong>John Doe</strong><small>john.doe@email.com</small></div>
+                <div class="user-avatar" id="sidebarAvatar">JD</div>
+                <div class="user-info"><strong id="sidebarName">Loading...</strong><small id="sidebarEmail">Loading...</small></div>
             </a>
-            <a href="vehicle-login.html" class="btn btn-outline-danger btn-sm w-100 mt-2"
+            <a href="logout.php" class="btn btn-outline-danger btn-sm w-100 mt-2"
                 style="border-radius:8px;font-size:12px">
                 <i class="bi bi-box-arrow-right me-1"></i> Sign Out
             </a>
         </div>
     </aside>
     <div class="sidebar-overlay" id="overlay" onclick="closeSidebar()"></div>
-
+ 
     <header class="topbar">
         <button class="sidebar-toggle" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
         <h1 class="page-title">My Profile</h1>
-        <div class="user-avatar" style="width:38px;height:38px;font-size:14px;cursor:pointer">JD</div>
+        <div class="user-avatar" id="topbarAvatar" style="width:38px;height:38px;font-size:14px;cursor:pointer">JD</div>
     </header>
-
+ 
     <main class="main-content">
         <div class="content-body" style="max-width:900px">
-
+ 
             <!-- Profile Header Card -->
             <div class="panel mb-4" style="overflow:visible">
                 <div
                     style="background:linear-gradient(135deg,#1a56db,#1e40af);height:100px;border-radius:12px 12px 0 0;position:relative">
                     <div style="position:absolute;bottom:-50px;left:28px">
                         <div class="avatar-upload" onclick="document.getElementById('avatarInput').click()">
-                            <div class="avatar-big">JD</div>
+                            <div class="avatar-big" id="profileAvatar">JD</div>
                             <div class="avatar-edit-btn"><i class="bi bi-camera-fill"></i></div>
                         </div>
                         <input type="file" id="avatarInput" accept="image/*" style="display:none">
@@ -165,44 +178,39 @@
                 <div class="panel-body" style="padding-top:64px">
                     <div class="d-flex flex-wrap align-items-start justify-content-between gap-3">
                         <div>
-                            <h4 class="fw-bold mb-1">John Doe</h4>
+                            <h4 class="fw-bold mb-1" id="profileName">Loading...</h4>
                             <div class="d-flex flex-wrap gap-2 align-items-center">
                                 <span style="font-size:13px;color:#64748b"><i
-                                        class="bi bi-envelope me-1"></i>john.doe@email.com</span>
-                                <span style="font-size:13px;color:#64748b"><i class="bi bi-telephone me-1"></i>+977
-                                    9812345678</span>
-                                <span style="font-size:13px;color:#64748b"><i class="bi bi-geo-alt me-1"></i>Kathmandu,
-                                    Nepal</span>
+                                        class="bi bi-envelope me-1"></i><span id="profileEmail">Loading...</span></span>
+                                <span style="font-size:13px;color:#64748b"><i class="bi bi-telephone me-1"></i><span id="profilePhone">Loading...</span></span>
+                                <span style="font-size:13px;color:#64748b"><i class="bi bi-geo-alt me-1"></i><span id="profileLocation">Loading...</span></span>
                             </div>
                             <div class="d-flex gap-2 mt-2 flex-wrap">
-                                <span class="verify-badge verified"><i class="bi bi-shield-fill-check"></i> Email
-                                    Verified</span>
-                                <span class="verify-badge verified"><i class="bi bi-shield-fill-check"></i> Phone
-                                    Verified</span>
-                                <span class="verify-badge unverified"><i class="bi bi-shield-x"></i> ID Not
-                                    Verified</span>
+                                <span class="verify-badge verified"><i class="bi bi-shield-fill-check"></i> Email Verified</span>
+                                <span class="verify-badge" id="phoneVerifyBadge"><i class="bi bi-shield-x"></i> Phone Not Verified</span>
+                                <span class="verify-badge unverified"><i class="bi bi-shield-x"></i> ID Not Verified</span>
                             </div>
                         </div>
                         <div class="d-flex gap-3 text-center">
                             <div>
-                                <div style="font-size:22px;font-weight:800;color:#1a56db">8</div>
+                                <div style="font-size:22px;font-weight:800;color:#1a56db" id="bookingsCount">0</div>
                                 <div style="font-size:11px;color:#64748b">Bookings</div>
                             </div>
                             <div style="width:1px;background:#e2e8f0"></div>
                             <div>
-                                <div style="font-size:22px;font-weight:800;color:#16a34a">4</div>
+                                <div style="font-size:22px;font-weight:800;color:#16a34a" id="vehiclesCount">0</div>
                                 <div style="font-size:11px;color:#64748b">Vehicles</div>
                             </div>
                             <div style="width:1px;background:#e2e8f0"></div>
                             <div>
-                                <div style="font-size:22px;font-weight:800;color:#f59e0b">4.9 ⭐</div>
+                                <div style="font-size:22px;font-weight:800;color:#f59e0b" id="ratingCount">0 ⭐</div>
                                 <div style="font-size:11px;color:#64748b">Rating</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
+ 
             <!-- ID Verification Alert -->
             <div class="alert d-flex align-items-start gap-3 mb-4"
                 style="background:#fffbeb;border:1px solid #fcd34d;border-radius:12px;padding:16px">
@@ -218,7 +226,7 @@
                     </button>
                 </div>
             </div>
-
+ 
             <!-- Tabs -->
             <div class="tab-pill">
                 <button class="active" onclick="switchTab('personal',this)">Personal Info</button>
@@ -226,7 +234,7 @@
                 <button onclick="switchTab('payment',this)">Payment Methods</button>
                 <button onclick="switchTab('notifications',this)">Notifications</button>
             </div>
-
+ 
             <!-- Tab: Personal Info -->
             <div class="tab-panel active" id="tab-personal">
                 <form onsubmit="saveProfile(event)">
@@ -238,16 +246,16 @@
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold" style="font-size:13px">First Name</label>
-                                    <input type="text" class="form-control" value="John" />
+                                    <input type="text" class="form-control" id="firstName" />
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold" style="font-size:13px">Last Name</label>
-                                    <input type="text" class="form-control" value="Doe" />
+                                    <input type="text" class="form-control" id="lastName" />
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold" style="font-size:13px">Email Address</label>
                                     <div class="input-group">
-                                        <input type="email" class="form-control" value="john.doe@email.com" />
+                                        <input type="email" class="form-control" id="email" disabled />
                                         <span class="input-group-text" style="font-size:11px;color:#16a34a"><i
                                                 class="bi bi-check-circle-fill me-1"></i>Verified</span>
                                     </div>
@@ -256,29 +264,30 @@
                                     <label class="form-label fw-semibold" style="font-size:13px">Phone Number</label>
                                     <div class="input-group">
                                         <span class="input-group-text">+977</span>
-                                        <input type="tel" class="form-control" value="9812345678" />
+                                        <input type="tel" class="form-control" id="phone" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold" style="font-size:13px">Date of Birth</label>
-                                    <input type="date" class="form-control" value="1995-08-15" />
+                                    <input type="date" class="form-control" id="dob" />
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold" style="font-size:13px">Gender</label>
-                                    <select class="form-select">
-                                        <option selected>Male</option>
-                                        <option>Female</option>
-                                        <option>Prefer not to say</option>
+                                    <select class="form-select" id="gender">
+                                        <option value="">Select Gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Prefer not to say</option>
                                     </select>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label fw-semibold" style="font-size:13px">Address</label>
-                                    <input type="text" class="form-control" value="Baneshwor, Kathmandu 44600" />
+                                    <input type="text" class="form-control" id="address" />
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label fw-semibold" style="font-size:13px">About / Bio</label>
-                                    <textarea class="form-control" rows="2"
-                                        placeholder="Tell owners a bit about yourself…">Experienced traveler and careful driver. I take great care of rented vehicles.</textarea>
+                                    <textarea class="form-control" id="bio" rows="2"
+                                        placeholder="Tell owners a bit about yourself…"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -290,7 +299,7 @@
                     </div>
                 </form>
             </div>
-
+ 
             <!-- Tab: Security -->
             <div class="tab-panel" id="tab-security">
                 <div class="panel mb-3">
@@ -326,7 +335,7 @@
                             <div class="col-12">
                                 <label class="form-label fw-semibold" style="font-size:13px">Confirm New
                                     Password</label>
-                                <input type="password" class="form-control" placeholder="Repeat new password" />
+                                <input type="password" class="form-control" id="confirmPwd" placeholder="Repeat new password" />
                             </div>
                             <div class="col-12">
                                 <button class="btn btn-primary" style="border-radius:10px"
@@ -354,24 +363,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0">
-                            <div class="d-flex align-items-center gap-3">
-                                <div
-                                    style="width:40px;height:40px;background:#f1f5f9;border-radius:10px;display:grid;place-items:center">
-                                    <i class="bi bi-phone" style="font-size:18px;color:#64748b"></i>
-                                </div>
-                                <div>
-                                    <div style="font-size:13px;font-weight:600">Safari · iPhone</div>
-                                    <div style="font-size:11px;color:#64748b">Kathmandu, Nepal · 2 days ago</div>
-                                </div>
-                            </div>
-                            <button class="btn btn-outline-danger btn-sm"
-                                style="border-radius:8px;font-size:11px">Revoke</button>
-                        </div>
                     </div>
                 </div>
             </div>
-
+ 
             <!-- Tab: Payment -->
             <div class="tab-panel" id="tab-payment">
                 <div class="panel mb-3">
@@ -401,46 +396,10 @@
                                     style="border-radius:6px;font-size:11px"><i class="bi bi-trash"></i></button>
                             </div>
                         </div>
-                        <!-- Bank -->
-                        <div
-                            style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid #f1f5f9">
-                            <div class="d-flex align-items-center gap-3">
-                                <div
-                                    style="width:44px;height:30px;background:#f1f5f9;border-radius:6px;display:flex;align-items:center;justify-content:center">
-                                    <i class="bi bi-bank text-primary" style="font-size:16px"></i>
-                                </div>
-                                <div>
-                                    <div style="font-size:13px;font-weight:600">NMB Bank ****4521</div>
-                                    <div style="font-size:11px;color:#64748b">Payout account</div>
-                                </div>
-                            </div>
-                            <div class="d-flex gap-2">
-                                <button class="btn btn-outline-secondary btn-sm"
-                                    style="border-radius:6px;font-size:11px"><i class="bi bi-pencil"></i></button>
-                                <button class="btn btn-outline-danger btn-sm"
-                                    style="border-radius:6px;font-size:11px"><i class="bi bi-trash"></i></button>
-                            </div>
-                        </div>
-                        <!-- Khalti -->
-                        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0">
-                            <div class="d-flex align-items-center gap-3">
-                                <div
-                                    style="width:44px;height:30px;background:#5c2d91;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:700">
-                                    Khalti</div>
-                                <div>
-                                    <div style="font-size:13px;font-weight:600">Khalti Wallet</div>
-                                    <div style="font-size:11px;color:#64748b">9812345678</div>
-                                </div>
-                            </div>
-                            <div class="d-flex gap-2">
-                                <button class="btn btn-outline-danger btn-sm"
-                                    style="border-radius:6px;font-size:11px"><i class="bi bi-trash"></i></button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
-
+ 
             <!-- Tab: Notifications -->
             <div class="tab-panel" id="tab-notifications">
                 <div class="panel">
@@ -458,7 +417,7 @@
                                     <div style="font-size:11px;color:#64748b">When your booking is approved</div>
                                 </div>
                                 <div class="form-check form-switch mb-0"><input class="form-check-input" type="checkbox"
-                                        checked style="width:44px;height:22px;cursor:pointer"></div>
+                                        id="notifBookingConfirmed" checked style="width:44px;height:22px;cursor:pointer"></div>
                             </div>
                             <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
                                 <div>
@@ -466,39 +425,10 @@
                                     <div style="font-size:11px;color:#64748b">24 hours before pickup</div>
                                 </div>
                                 <div class="form-check form-switch mb-0"><input class="form-check-input" type="checkbox"
-                                        checked style="width:44px;height:22px;cursor:pointer"></div>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-                                <div>
-                                    <div style="font-size:13px;font-weight:600">New Booking Request</div>
-                                    <div style="font-size:11px;color:#64748b">When someone books your vehicle</div>
-                                </div>
-                                <div class="form-check form-switch mb-0"><input class="form-check-input" type="checkbox"
-                                        checked style="width:44px;height:22px;cursor:pointer"></div>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-                                <div>
-                                    <div style="font-size:13px;font-weight:600">Booking Cancelled</div>
-                                    <div style="font-size:11px;color:#64748b">When a booking is cancelled</div>
-                                </div>
-                                <div class="form-check form-switch mb-0"><input class="form-check-input" type="checkbox"
-                                        checked style="width:44px;height:22px;cursor:pointer"></div>
+                                        id="notifTripReminder" checked style="width:44px;height:22px;cursor:pointer"></div>
                             </div>
                         </div>
                         <div style="margin-bottom:20px">
-                            <div
-                                style="font-size:12px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">
-                                Payment</div>
-                            <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-                                <div>
-                                    <div style="font-size:13px;font-weight:600">Payment Received</div>
-                                    <div style="font-size:11px;color:#64748b">When earnings are deposited</div>
-                                </div>
-                                <div class="form-check form-switch mb-0"><input class="form-check-input" type="checkbox"
-                                        checked style="width:44px;height:22px;cursor:pointer"></div>
-                            </div>
-                        </div>
-                        <div>
                             <div
                                 style="font-size:12px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">
                                 Channels</div>
@@ -507,14 +437,14 @@
                                     <div style="font-size:13px;font-weight:600">Email Notifications</div>
                                 </div>
                                 <div class="form-check form-switch mb-0"><input class="form-check-input" type="checkbox"
-                                        checked style="width:44px;height:22px;cursor:pointer"></div>
+                                        id="notifEmail" checked style="width:44px;height:22px;cursor:pointer"></div>
                             </div>
                             <div class="d-flex justify-content-between align-items-center py-2">
                                 <div>
                                     <div style="font-size:13px;font-weight:600">SMS Notifications</div>
                                 </div>
                                 <div class="form-check form-switch mb-0"><input class="form-check-input" type="checkbox"
-                                        style="width:44px;height:22px;cursor:pointer"></div>
+                                        id="notifSMS" style="width:44px;height:22px;cursor:pointer"></div>
                             </div>
                         </div>
                         <div class="d-flex justify-content-end mt-3">
@@ -525,10 +455,10 @@
                     </div>
                 </div>
             </div>
-
+ 
         </div>
     </main>
-
+ 
     <!-- Verify ID Modal -->
     <div class="modal fade" id="verifyModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
@@ -574,7 +504,7 @@
             </div>
         </div>
     </div>
-
+ 
     <!-- Save Toast -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
         <div id="saveToast" class="toast align-items-center text-bg-success border-0" role="alert">
@@ -584,33 +514,224 @@
             </div>
         </div>
     </div>
-
+ 
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="errorToast" class="toast align-items-center text-bg-danger border-0" role="alert">
+            <div class="d-flex">
+                <div class="toast-body"><i class="bi bi-exclamation-circle me-2"></i><span id="errorMsg">Error occurred!</span></div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+ 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
     <script>
-        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('overlay').classList.toggle('show'); }
-        function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('show'); }
-
+        let currentUser = {};
+ 
+        // Load profile on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProfile();
+        });
+ 
+        function loadProfile() {
+            fetch('profile.php?action=get')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        currentUser = data.user;
+                        populateProfile();
+                    } else {
+                        showError(data.message || 'Failed to load profile');
+                        setTimeout(() => window.location.href = 'login.html', 2000);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showError('Connection error');
+                });
+        }
+ 
+        function populateProfile() {
+            const fullName = currentUser.name || '';
+            const names = fullName.split(' ');
+            const firstName = names[0] || '';
+            const lastName = names.slice(1).join(' ') || '';
+            const initials = (firstName.charAt(0) + lastName.charAt(0)).toUpperCase() || 'JD';
+ 
+            // Update all avatars
+            document.getElementById('profileAvatar').textContent = initials;
+            document.getElementById('sidebarAvatar').textContent = initials;
+            document.getElementById('topbarAvatar').textContent = initials;
+ 
+            // Update header info
+            document.getElementById('profileName').textContent = currentUser.name || '';
+            document.getElementById('sidebarName').textContent = currentUser.name || 'User';
+            document.getElementById('sidebarEmail').textContent = currentUser.email || '';
+            
+            document.getElementById('profileEmail').textContent = currentUser.email || '';
+            document.getElementById('profilePhone').textContent = currentUser.phone || '+977 9812345678';
+            document.getElementById('profileLocation').textContent = currentUser.address || 'Kathmandu, Nepal';
+ 
+            // Stats
+            document.getElementById('bookingsCount').textContent = currentUser.bookings_count || 0;
+            document.getElementById('vehiclesCount').textContent = currentUser.vehicles_count || 0;
+            document.getElementById('ratingCount').textContent = (currentUser.rating || 0) + ' ⭐';
+ 
+            // Phone verification badge
+            if (currentUser.phone_verified) {
+                document.getElementById('phoneVerifyBadge').className = 'verify-badge verified';
+                document.getElementById('phoneVerifyBadge').innerHTML = '<i class="bi bi-shield-fill-check"></i> Phone Verified';
+            }
+ 
+            // Form fields
+            document.getElementById('firstName').value = firstName;
+            document.getElementById('lastName').value = lastName;
+            document.getElementById('email').value = currentUser.email || '';
+            document.getElementById('phone').value = (currentUser.phone || '+977 9812345678').replace('+977 ', '').replace('+977', '');
+            document.getElementById('dob').value = currentUser.date_of_birth || '';
+            document.getElementById('gender').value = currentUser.gender || '';
+            document.getElementById('address').value = currentUser.address || '';
+            document.getElementById('bio').value = currentUser.bio || '';
+        }
+ 
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('show');
+        }
+ 
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('show');
+        }
+ 
         function switchTab(name, btn) {
             document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.tab-pill button').forEach(b => b.classList.remove('active'));
             document.getElementById('tab-' + name).classList.add('active');
             btn.classList.add('active');
         }
-
+ 
         function showToast() {
             new bootstrap.Toast(document.getElementById('saveToast'), { delay: 2500 }).show();
         }
-
-        function saveProfile(e) { e.preventDefault(); showToast(); }
-        function saveNotifications(e) { e.preventDefault(); showToast(); }
-
+ 
+        function showError(message) {
+            document.getElementById('errorMsg').textContent = message;
+            new bootstrap.Toast(document.getElementById('errorToast'), { delay: 3000 }).show();
+        }
+ 
+        function saveProfile(e) {
+            e.preventDefault();
+ 
+            const formData = new FormData();
+            formData.append('action', 'update_personal');
+            formData.append('first_name', document.getElementById('firstName').value);
+            formData.append('last_name', document.getElementById('lastName').value);
+            formData.append('phone', document.getElementById('phone').value);
+            formData.append('date_of_birth', document.getElementById('dob').value);
+            formData.append('gender', document.getElementById('gender').value);
+            formData.append('address', document.getElementById('address').value);
+            formData.append('bio', document.getElementById('bio').value);
+ 
+            fetch('profile.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showToast();
+                    loadProfile();
+                } else {
+                    showError(data.message || 'Failed to save changes');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showError('Connection error');
+            });
+        }
+ 
+        function saveNotifications(e) {
+            e.preventDefault();
+ 
+            const formData = new FormData();
+            formData.append('action', 'update_notifications');
+            formData.append('notif_booking_confirmed', document.getElementById('notifBookingConfirmed').checked ? 1 : 0);
+            formData.append('notif_trip_reminder', document.getElementById('notifTripReminder').checked ? 1 : 0);
+            formData.append('notif_email', document.getElementById('notifEmail').checked ? 1 : 0);
+            formData.append('notif_sms', document.getElementById('notifSMS').checked ? 1 : 0);
+ 
+            fetch('profile.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showToast();
+                } else {
+                    showError(data.message || 'Failed to save preferences');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showError('Connection error');
+            });
+        }
+ 
         function changePassword(e) {
             e.preventDefault();
-            showToast();
+ 
+            const currentPwd = document.getElementById('curPwd').value;
+            const newPwd = document.getElementById('newPwd').value;
+            const confirmPwd = document.getElementById('confirmPwd').value;
+ 
+            if (!currentPwd || !newPwd || !confirmPwd) {
+                showError('Please fill all password fields');
+                return;
+            }
+ 
+            if (newPwd !== confirmPwd) {
+                showError('New passwords do not match');
+                return;
+            }
+ 
+            if (newPwd.length < 8) {
+                showError('Password must be at least 8 characters');
+                return;
+            }
+ 
+            const formData = new FormData();
+            formData.append('action', 'change_password');
+            formData.append('current_password', currentPwd);
+            formData.append('new_password', newPwd);
+ 
+            fetch('profile.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showToast();
+                    document.getElementById('curPwd').value = '';
+                    document.getElementById('newPwd').value = '';
+                    document.getElementById('confirmPwd').value = '';
+                    document.getElementById('strengthFill').style.width = '0%';
+                    document.getElementById('strengthText').textContent = '';
+                } else {
+                    showError(data.message || 'Failed to change password');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showError('Connection error');
+            });
         }
-
+ 
         function togglePwd(id, btn) {
             var inp = document.getElementById(id);
             if (inp.type === 'password') {
@@ -621,7 +742,7 @@
                 btn.innerHTML = '<i class="bi bi-eye"></i>';
             }
         }
-
+ 
         function checkStrength(val) {
             var fill = document.getElementById('strengthFill');
             var text = document.getElementById('strengthText');
@@ -638,15 +759,15 @@
             text.textContent = labels[score - 1] || '';
             text.style.color = colors[score - 1] || '#94a3b8';
         }
-
+ 
         function openVerifyModal() {
             new bootstrap.Modal(document.getElementById('verifyModal')).show();
         }
-
+ 
         function openAddPayment() {
-            alert('Add payment method — connect to your C backend POST /api/payment-methods');
+            alert('Add payment method — integration coming soon');
         }
     </script>
 </body>
-
+ 
 </html>
